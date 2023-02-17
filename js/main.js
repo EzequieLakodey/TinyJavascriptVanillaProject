@@ -40,6 +40,7 @@ fetch(countryDataApi)
         <p class="card-text"> Languages : ${languages} </p>
         <p class="card-text"> Region : ${country.region}, ${country.subregion} </p>
         <p class="card-text"> Calling code : +${country.callingCodes} </p>
+        <p class="card-text"> Time zone : ${country.timezones} </p>
       </div>
       `;
       countriesContainer.appendChild(cards);

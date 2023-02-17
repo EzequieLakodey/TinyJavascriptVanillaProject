@@ -38,7 +38,7 @@
             href="#"
             class="d-flex p-2 flex-column flex-wrap align-items-center">
             <img src="assets/side-navbar/user.svg" alt="User profile picture" />
-            Sign in
+            Sign up
           </a>
         </li>
 
@@ -69,8 +69,72 @@
       </button>
     </div>
 
-    <main class="container" id="main-desplazation">
-      <div id="countries-container" class="row text-center"></div>
+    <main class="container-fluid">
+      <section id="main-desplazation">
+        <div id="countries-container" class="row text-center"></div>
+      </section>
+
+      <section
+        class="d-flex flex-wrap justify-content-center align-items-center"
+        id="form-section">
+        <form
+          class="text-center d-flex flex-column flex-wrap form-control"
+          id="register-form">
+          <div class="hidden input-container">
+            <input
+              type="text"
+              placeholder="Username"
+              class="text-center wrong-input"
+              id="register-username"
+              name="registerUsername"
+              required />
+          </div>
+
+          <div id="email-group" class="hidden input-container">
+            <input
+              type="email"
+              placeholder="@mail"
+              class="text-center wrong-input"
+              id="register-email"
+              name="registerEmail"
+              required />
+          </div>
+
+          <div class="hidden input-container">
+            <input
+              type="password"
+              placeholder="Enter a password"
+              class="text-center wrong-input"
+              id="register-password"
+              name="registerPassword"
+              required />
+          </div>
+
+          <div class="hidden input-container">
+            <input
+              type="password"
+              placeholder="Confirm password"
+              class="text-center wrong-input"
+              id="confirm-password"
+              name="confirmPassword"
+              required />
+          </div>
+          <div class="hidden input-container">
+            <input type="checkbox" name="terms" id="terms" required />
+
+            <label for="terms"> I agree the terms & conditions </label>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="text-center hidden input-container"
+              id="sumbit-register">
+              Done
+            </button>
+          </div>
+        </form>
+      </section>
     </main>
 
     <script src="js/sideNav.js"></script>
