@@ -40,20 +40,36 @@ const expresions = {
 
 const renderExistUser = () => {
   userLiSection.innerHTML = `
-  <img class="img-fluid py-3" src="assets/side-navbar/user.svg" alt="User profile picture" />
-  <h6 class="d-flex p-2 flex-column flex-wrap align-items-center"> ${existentUser.user} </h6>
+  <a class="d-flex p-2 flex-column flex-wrap align-items-center"> 
+  <img src="assets/side-navbar/user.svg" alt="User profile picture" />
+  ${existentUser.user}
+  </a>
   <a class="d-flex p-2 flex-column flex-wrap align-items-center hidden" href="#" id="log-out">Log out</a>
   `;
-
   const logOut = document.getElementById("log-out");
-
+  logOut.classList.add(
+    "d-flex",
+    "p-2",
+    "flex-column",
+    "flex-wrap",
+    "align-items-center"
+  );
   logOut.addEventListener("click", () => {
     localStorage.removeItem("User");
+    location.reload();
   });
 };
 
-if (existentUser !== "") {
+if (existentUser) {
   renderExistUser();
+
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: `Welcome ${existentUser.user}`,
+    showConfirmButton: false,
+    timer: 1500,
+  });
 }
 
 signInButton.addEventListener("click", () => {
@@ -153,7 +169,9 @@ controlRegister.addEventListener("submit", (e) => {
     i.classList.toggle("hidden");
   });
 
-  controlRegister.reset();
-
   renderExistUser();
+
+  location.reload();
+
+  controlRegister.reset();
 });
