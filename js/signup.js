@@ -1,4 +1,4 @@
-const signInButton = document.querySelector("#sign-in");
+const signInButton = document.querySelector(".sign-in");
 
 const controlRegister = document.querySelector("#register-form");
 
@@ -16,13 +16,7 @@ const confirmPassword = document.querySelector("#confirm-password");
 
 const submitForm = document.querySelector("#sumbit-register");
 
-const userData = {
-  username: false,
-
-  email: false,
-
-  password: false,
-};
+const userLiSection = document.getElementById("user-section");
 
 signInButton.addEventListener("click", () => {
   mainContainer.classList.toggle("hidden");
@@ -31,6 +25,33 @@ signInButton.addEventListener("click", () => {
     i.classList.toggle("hidden");
   });
 });
+
+const renderExistUser = () => {
+  signInButton.innerHTML = `
+    <a
+    href="#"
+  class="d-flex p-2 flex-column flex-wrap align-items-center">
+  <img src="assets/side-navbar/user.svg" alt="User profile picture" />
+  ${existentUser.user}
+  </a>
+  `;
+
+  const logOut = document.querySelector("#log-out");
+
+  logOut.classList.toggle("show");
+
+  logOut.addEventListener("click", () => {
+    localStorage.removeItem("User");
+  });
+};
+
+const userData = {
+  username: false,
+
+  email: false,
+
+  password: false,
+};
 
 const expresions = {
   registerUsername: /^[a-zA-Z0-9\_\-]{4,16}$/,
@@ -106,12 +127,12 @@ registerInputs.forEach((input) => {
   input.addEventListener("blur", registerValidator);
 });
 
-let user = [];
+let createdUser = "";
 
 controlRegister.addEventListener("submit", (e) => {
   e.preventDefault;
 
-  const createdUser = {
+  createdUser = {
     user: usernameValue.value,
 
     userEmail: emailValue.value,
@@ -119,9 +140,7 @@ controlRegister.addEventListener("submit", (e) => {
     userPassword: passwordValue.value,
   };
 
-  user.push(createdUser);
-
-  localStorage.setItem("User", JSON.stringify(user));
+  localStorage.setItem("User", JSON.stringify(createdUser));
 
   mainContainer.classList.toggle("hidden");
 
@@ -132,4 +151,10 @@ controlRegister.addEventListener("submit", (e) => {
   });
 
   controlRegister.reset();
+
+  renderExistUser();
 });
+
+const existentUser = JSON.parse(localStorage.getItem("User"));
+
+console.log(existentUser);

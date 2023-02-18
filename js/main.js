@@ -8,13 +8,9 @@ fetch(countryDataApi)
     data.forEach((country) => {
       let currencies = [];
 
-      try {
-        country.currencies.forEach((c) => {
-          currencies.push(c.name);
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      country.currencies?.forEach((c) => {
+        currencies.push(c.name);
+      });
 
       let languages = [];
       country.languages.forEach((l) => {
