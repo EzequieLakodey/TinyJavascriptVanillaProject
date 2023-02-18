@@ -56,7 +56,18 @@ const renderExistUser = () => {
   );
   logOut.addEventListener("click", () => {
     localStorage.removeItem("User");
-    location.reload();
+
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title: `Closed session`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
   });
 };
 
@@ -66,7 +77,7 @@ if (existentUser) {
   Swal.fire({
     position: "center",
     icon: "success",
-    title: `Welcome ${existentUser.user}`,
+    title: `Welcome ${existentUser.user}!`,
     showConfirmButton: false,
     timer: 1500,
   });
@@ -169,9 +180,63 @@ controlRegister.addEventListener("submit", (e) => {
     i.classList.toggle("hidden");
   });
 
-  renderExistUser();
-
-  location.reload();
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: `Account created succesfully`,
+    showConfirmButton: false,
+    timer: 1000,
+  });
 
   controlRegister.reset();
+
+  setTimeout(() => {
+    location.reload();
+  }, 1000);
+
+  setTimeout(() => {
+    renderExistUser();
+  }, 1500);
+});
+
+usernameValue.addEventListener("click", () => {
+  Toastify({
+    text: "You must use between 4 and 16 characters, they can't be symbols",
+
+    duration: 5000,
+
+    stopOnFocus: true,
+
+    gravity: "top",
+
+    position: "right",
+  }).showToast();
+});
+
+emailValue.addEventListener("click", () => {
+  Toastify({
+    text: "Insert a valid Email",
+
+    duration: 5000,
+
+    stopOnFocus: true,
+
+    gravity: "top",
+
+    position: "right",
+  }).showToast();
+});
+
+passwordValue.addEventListener("click", () => {
+  Toastify({
+    text: "Create a security password, you can use all special characters",
+
+    duration: 5000,
+
+    stopOnFocus: true,
+
+    gravity: "top",
+
+    position: "right",
+  }).showToast();
 });
