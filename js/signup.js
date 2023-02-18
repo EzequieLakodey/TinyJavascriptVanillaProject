@@ -1,4 +1,4 @@
-const signInButton = document.querySelector(".sign-in");
+const signInButton = document.getElementById("sign-in");
 
 const controlRegister = document.querySelector("#register-form");
 
@@ -18,32 +18,9 @@ const submitForm = document.querySelector("#sumbit-register");
 
 const userLiSection = document.getElementById("user-section");
 
-signInButton.addEventListener("click", () => {
-  mainContainer.classList.toggle("hidden");
+const existentUser = JSON.parse(localStorage.getItem("User"));
 
-  inputsDivsContainers.forEach((i) => {
-    i.classList.toggle("hidden");
-  });
-});
-
-const renderExistUser = () => {
-  signInButton.innerHTML = `
-    <a
-    href="#"
-  class="d-flex p-2 flex-column flex-wrap align-items-center">
-  <img src="assets/side-navbar/user.svg" alt="User profile picture" />
-  ${existentUser.user}
-  </a>
-  `;
-
-  const logOut = document.querySelector("#log-out");
-
-  logOut.classList.toggle("show");
-
-  logOut.addEventListener("click", () => {
-    localStorage.removeItem("User");
-  });
-};
+console.log(existentUser);
 
 const userData = {
   username: false,
@@ -59,6 +36,51 @@ const expresions = {
   registerPassword: /^.{4,12}$/,
 
   registerEmail: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+};
+
+const renderExistUser = () => {
+  userLiSection.innerHTML = `
+  <img class="img-fluid py-3" src="assets/side-navbar/user.svg" alt="User profile picture" />
+  <h6 class="d-flex p-2 flex-column flex-wrap align-items-center"> ${existentUser.user} </h6>
+  <a class="d-flex p-2 flex-column flex-wrap align-items-center hidden" href="#" id="log-out">Log out</a>
+  `;
+
+  const logOut = document.getElementById("log-out");
+
+  logOut.addEventListener("click", () => {
+    localStorage.removeItem("User");
+  });
+};
+
+if (existentUser !== "") {
+  renderExistUser();
+}
+
+signInButton.addEventListener("click", () => {
+  mainContainer.classList.toggle("hidden");
+
+  inputsDivsContainers.forEach((i) => {
+    i.classList.toggle("hidden");
+  });
+});
+
+const validateRegisterData = (expresion, input, element) => {
+  if (expresion.test(input.value)) {
+    document
+      .querySelector(`#register-${element}`)
+      .classList.add("correct-input");
+    document
+      .querySelector(`#register-${element}`)
+      .classList.remove("wrong-input");
+  } else {
+    document
+      .querySelector(`#register-${element}`)
+      .classList.remove("correct-input");
+
+    document.querySelector(`#register-${element}`).classList.add("wrong-input");
+
+    userData[element] = false;
+  }
 };
 
 const registerValidator = (e) => {
@@ -84,25 +106,6 @@ const registerValidator = (e) => {
       passwordValidation();
 
       break;
-  }
-};
-
-const validateRegisterData = (expresion, input, element) => {
-  if (expresion.test(input.value)) {
-    document
-      .querySelector(`#register-${element}`)
-      .classList.add("correct-input");
-    document
-      .querySelector(`#register-${element}`)
-      .classList.remove("wrong-input");
-  } else {
-    document
-      .querySelector(`#register-${element}`)
-      .classList.remove("correct-input");
-
-    document.querySelector(`#register-${element}`).classList.add("wrong-input");
-
-    userData[element] = false;
   }
 };
 
@@ -154,7 +157,3 @@ controlRegister.addEventListener("submit", (e) => {
 
   renderExistUser();
 });
-
-const existentUser = JSON.parse(localStorage.getItem("User"));
-
-console.log(existentUser);
